@@ -1,7 +1,11 @@
+# imports
 import re
 import os
 from time import process_time
+from tqdm import tqdm
 
+
+# global counters
 p_A_cnt = 0
 p_T_cnt = 0
 p_A_Er_cnt = 0
@@ -75,7 +79,7 @@ def dir_walker(task_dir, ans_dir, prefix=None, stat_dir=None):
     make_dir(ans_dir)
 
     files = [f for f in os.listdir(task_dir) if os.path.isfile(os.path.join(task_dir, f))]
-    for i in range(len(files)):
+    for i in tqdm(range(len(files))):
         task_file_path = os.path.join(task_dir, files[i])
         asn_file_path = os.path.join(ans_dir, files[i])
         if prefix:
