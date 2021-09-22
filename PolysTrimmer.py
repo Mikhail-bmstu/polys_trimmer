@@ -73,7 +73,7 @@ def make_dir(dir):
         os.makedirs(dir)
 
 
-def dir_walker(task_dir, ans_dir, prefix=None, stat_dir=None):
+def dir_walker(task_dir, ans_dir, prefix, stat_dir=None):
     t0 = process_time()  # timer
 
     make_dir(ans_dir)
@@ -86,8 +86,6 @@ def dir_walker(task_dir, ans_dir, prefix=None, stat_dir=None):
             asn_file_path = os.path.join(ans_dir, prefix + str(i + 1) + ".fastq")
 
         file_corrector(task_file_path, asn_file_path)
-        if i % 10 == 0:
-            print(f"corrected {i + 1} files")
 
     if stat_dir:
         make_dir(stat_dir)
@@ -111,7 +109,7 @@ def dir_walker(task_dir, ans_dir, prefix=None, stat_dir=None):
 def main():
     task_path = input("Enter the path of the files directory -> ")
     if not is_exists_dir(task_path):
-        print("this directory doesn't exist!!!\nEnter the correct path...")
+        print("This directory doesn't exist!!!\nEnter the correct path...")
         task_path = input("Enter the path of the files directory -> ")
 
     ans_path = input("Enter the path of the directory where files will be saved -> ")
