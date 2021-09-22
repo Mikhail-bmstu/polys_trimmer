@@ -4,8 +4,7 @@ import os
 from time import process_time
 from tqdm import tqdm
 
-
-# global counters
+# global counters for stats file
 p_A_cnt = 0
 p_T_cnt = 0
 p_A_Er_cnt = 0
@@ -15,6 +14,7 @@ read_cnt = 0
 
 
 def file_corrector(task_file_path, asn_file_path):
+    # patterns to edit rna/dna sequences
     poly_A = r'^(.*?)(AAAA*)\n'  # FGLKFDD(AAAAAA) -> FGLKFDD
     poly_T = r'^(TTTT*)(.*\n)'  # (TTTTTT)FDSKLDFLSDK -> FDSKLDFLSDK
     poly_A_Er = r'^(.*?)(AAA*[TCG]?AA*[TCG]A*[TCG]?A*)\n'  # FGLKFDD(AAAAGAAGAAAGA) -> FGLKFDD
@@ -33,6 +33,8 @@ def file_corrector(task_file_path, asn_file_path):
             for i in range(1, len(lines), 4):  # 1 read - 4 lines
                 mid_len += len(lines[i])
                 read_cnt += 1
+                # search patterns
+                # Poly A
                 if re.search(poly_A_Er, lines[i]):  # poly A with error
                     match = re.search(poly_A_Er, lines[i])
                     poly_A_d = match.end(1) - match.start(1)
@@ -46,6 +48,7 @@ def file_corrector(task_file_path, asn_file_path):
                     lines[i + 2] = lines[i + 2][:poly_A_d] + '\n'
                     p_A_cnt += 1
 
+                # Poly T
                 if re.search(poly_T_Er, lines[i]):  # poly T with error
                     match = re.search(poly_T_Er, lines[i])
                     poly_T_d = match.end(1)
@@ -59,8 +62,7 @@ def file_corrector(task_file_path, asn_file_path):
                     lines[i + 2] = lines[i + 2][poly_T_d:]
                     p_T_cnt += 1
 
-            ans_file.writelines(lines)
-            print(f"To file {asn_file_path} have written {len(lines) // 4} sequences")
+            ans_file.writelines(lines)  # edited lines
 
 
 def is_exists_dir(dir):
@@ -73,7 +75,7 @@ def make_dir(dir):
         os.makedirs(dir)
 
 
-def dir_walker(task_dir, ans_dir, prefix, stat_dir=None):
+def dir_walker(task_dir, ans_dir, prefix, stat_dir):
     t0 = process_time()  # timer
 
     make_dir(ans_dir)
@@ -87,18 +89,18 @@ def dir_walker(task_dir, ans_dir, prefix, stat_dir=None):
 
         file_corrector(task_file_path, asn_file_path)
 
-    if stat_dir:
-        make_dir(stat_dir)
-        with open(os.path.join(stat_dir, "stat_file.txt"), 'w', encoding="utf8") as stat_file:
-            stat_file.write("Total: " + str(p_A_cnt + p_T_cnt + p_A_Er_cnt + p_T_Er_cnt) + "\n")
-            stat_file.write("Poly A: " + str(p_A_cnt) + "\n")
-            stat_file.write("Poly T: " + str(p_T_cnt) + "\n")
-            stat_file.write("Poly A with errors: " + str(p_A_Er_cnt) + "\n")
-            stat_file.write("Poly T with errors: " + str(p_T_Er_cnt) + "\n")
-            stat_file.write("Poly A errors(%): " + str(round(p_A_Er_cnt * 100 / (p_A_cnt + p_A_Er_cnt), 2)) + "\n")
-            stat_file.write("Poly T errors(%): " + str(round(p_T_Er_cnt * 100 / (p_T_cnt + p_T_Er_cnt), 2)) + "\n")
-            stat_file.write("Middle read length: " + str(mid_len / read_cnt) + "\n")
-            stat_file.write("Total read(lines): " + str(read_cnt) + "\n")
+    # write result to stats file
+    make_dir(stat_dir)
+    with open(os.path.join(stat_dir, "stat_file.txt"), 'w', encoding="utf8") as stat_file:
+        stat_file.write("Total: " + str(p_A_cnt + p_T_cnt + p_A_Er_cnt + p_T_Er_cnt) + "\n")
+        stat_file.write("Poly A: " + str(p_A_cnt) + "\n")
+        stat_file.write("Poly T: " + str(p_T_cnt) + "\n")
+        stat_file.write("Poly A with errors: " + str(p_A_Er_cnt) + "\n")
+        stat_file.write("Poly T with errors: " + str(p_T_Er_cnt) + "\n")
+        stat_file.write("Poly A errors(%): " + str(round(p_A_Er_cnt * 100 / (p_A_cnt + p_A_Er_cnt), 2)) + "\n")
+        stat_file.write("Poly T errors(%): " + str(round(p_T_Er_cnt * 100 / (p_T_cnt + p_T_Er_cnt), 2)) + "\n")
+        stat_file.write("Middle read length: " + str(mid_len / read_cnt) + "\n")
+        stat_file.write("Total read(lines): " + str(read_cnt) + "\n")
 
         print("Data is written to the statistic file, good luck ;)")
 
@@ -126,10 +128,10 @@ def main():
     prefix = None
     stat_path = ans_path
 
-    if input("Are you blonde(default parameters)? [y]es / [n]o (тыкать букву в [], т.е y/n): ") == 'n':
+    if input("Use custom parameters? [y]es / [n]o (тыкать букву в [], т.е y/n): ") == 'y':
         if input("Use prefix? [y]es / [n]o: ") == 'y':
             prefix = input("Enter prefix for files -> ")
-        if input("Change statistic file directory(default is result directory)? [y]es / [n]o: ") == 'y':
+        if input("Change statistic file directory(default it's result directory)? [y]es / [n]o: ") == 'y':
             stat_path = input("Enter the path of the statistics file directory -> ")
     else:
         print("Statistics file directory is result files directory\nStatistics file name is sats_file")
