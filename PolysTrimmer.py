@@ -65,6 +65,11 @@ def file_corrector(task_file_path, asn_file_path):
             ans_file.writelines(lines)  # edited lines
 
 
+def file_ext(path_f):
+    _, ext = os.path.splitext(path_f)
+    return ext
+
+
 def is_exists_dir(dir):
     return os.path.exists(dir)
 
@@ -80,7 +85,10 @@ def dir_walker(task_dir, ans_dir, prefix, stat_dir):
 
     make_dir(ans_dir)
 
-    files = [f for f in os.listdir(task_dir) if os.path.isfile(os.path.join(task_dir, f))]
+    files = [
+        f for f in os.listdir(task_dir)
+        if file_ext(os.path.join(task_dir, f)) == ".fastq"
+    ]
     for i in tqdm(range(len(files))):
         task_file_path = os.path.join(task_dir, files[i])
         asn_file_path = os.path.join(ans_dir, files[i])
@@ -105,7 +113,7 @@ def dir_walker(task_dir, ans_dir, prefix, stat_dir):
         print("Data is written to the statistic file, good luck ;)")
 
     t1 = process_time() - t0
-    print(f"Corrected all files in {t1 - t0} seconds")
+    print(f"Corrected {len(files)} files in {t1 - t0} seconds")
 
 
 def main():
@@ -125,7 +133,7 @@ def main():
 
         ans_path = input("Enter the path of the directory where files will be saved -> ")
 
-    prefix = None
+    prefix = "file"
     stat_path = ans_path
 
     if input("Use custom parameters? [y]es / [n]o (тыкать букву в [], т.е y/n): ") == 'y':
