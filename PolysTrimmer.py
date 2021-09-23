@@ -118,16 +118,16 @@ def dir_walker(task_dir, ans_dir, prefix, stat_dir):
 
 def main():
     task_path = input("Enter the path of the files directory -> ")
-    if not is_exists_dir(task_path):
+    while not is_exists_dir(task_path):
         print("This directory doesn't exist!!!\nEnter the correct path...")
         task_path = input("Enter the path of the files directory -> ")
 
     ans_path = input("Enter the path of the directory where files will be saved -> ")
 
-    if task_path == ans_path:
+    while task_path == ans_path:
         print("Identical directories entered\nEnter the correct directories...")
         task_path = input("Enter the path of the files directory -> ")
-        if not is_exists_dir(task_path):
+        while not is_exists_dir(task_path):
             print("This directory doesn't exist!!!\nEnter the correct path...")
             task_path = input("Enter the path of the files directory -> ")
 
