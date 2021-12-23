@@ -127,11 +127,10 @@ def main():
     while task_path == ans_path:
         print("Identical directories entered\nEnter the correct directories...")
         task_path = input("Enter the path of the files directory -> ")
+        ans_path = input("Enter the path of the directory where files will be saved -> ")
         while not is_exists_dir(task_path):
             print("This directory doesn't exist!!!\nEnter the correct path...")
             task_path = input("Enter the path of the files directory -> ")
-
-        ans_path = input("Enter the path of the directory where files will be saved -> ")
 
     prefix = "file"
     stat_path = ans_path
