@@ -93,7 +93,7 @@ def dir_walker(task_dir, ans_dir, prefix, stat_dir):
         task_file_path = os.path.join(task_dir, files[i])
         asn_file_path = os.path.join(ans_dir, files[i])
         if prefix:
-            asn_file_path = os.path.join(ans_dir, prefix + str(i + 1) + ".fastq")
+            asn_file_path = os.path.join(ans_dir, prefix + "_" + str(i + 1) + ".fastq")
 
         file_corrector(task_file_path, asn_file_path)
 
@@ -135,7 +135,7 @@ def main():
     prefix = "file"
     stat_path = ans_path
 
-    if input("Use custom parameters? [y]es / [n]o (тыкать букву в [], т.е y/n): ") == 'y':
+    if input("Use custom parameters? [y]es / [n]o: ") == 'y':
         if input("Use prefix? [y]es / [n]o: ") == 'y':
             prefix = input("Enter prefix for files -> ")
         if input("Change statistic file directory(default it's result directory)? [y]es / [n]o: ") == 'y':
