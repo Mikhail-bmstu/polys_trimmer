@@ -3,6 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="633c4c11-8e39-4d2f-9729-2b6ff2547739" name="Changes" comment="impruvements">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PolysTrimmer.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolysTrimmer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fastq_runid_edc8d97f9fe24bba2bec7c9cf73cce0eda7adfeb_0_0.fastq" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/example.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/run in cmd.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/stat example.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run in cmd.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stat example.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,21 +35,21 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TargetSensor" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager" selected="Python.PolysTrimmer">
     <configuration name="PolysTrimmer" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="polys_trimmer" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\solov\anaconda3\envs\PycharmProjects\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PolysTrimmer.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
